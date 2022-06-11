@@ -1,0 +1,76 @@
+<section>
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title mb-0">Books Available</h3>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="text-black-50">
+                        <th class="p-2">S/N</th>
+                        <th class="p-2">Book Cover</th>
+                        <th class="p-2">Book Name</th>
+                        <th class="p-2">Author</th>
+                        <th class="p-2">Category</th>
+                        <th class="p-2">Bookshop</th>
+                        <th class="p-2">Quantity</th>
+                        <th class="p-2">Price (TSh)</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let book of books">
+                            <td>
+                                {{ 1 }}
+                            </td>
+                            <td>
+                                <img [src]="book.cover" alt="" />
+                            </td>
+                            <td>
+                                {{ book.name }}
+                            </td>
+                            <td>
+                                {{ book.author }}
+                            </td>
+                            <td>
+                                {{ book.category }}
+                            </td>
+                            <td>
+                                {{ book.bookShop }}
+                            </td>
+                            <td>
+                                {{ book.quantity }}
+                            </td>
+                            <td>
+                                {{ book.price }}
+                            </td>
+
+                            <td>
+                                <button
+                                    mat-icon-button
+                                    (click)="editBook(book)"
+                                >
+                                    <mat-icon
+                                        class="material-symbols-rounded"
+                                        color="primary"
+                                    >
+                                        edit
+                                    </mat-icon>
+                                </button>
+                                <button
+                                    mat-icon-button
+                                    (click)="deleteBook(book)"
+                                >
+                                    <mat-icon
+                                        class="material-symbols-rounded"
+                                        color="warn"
+                                    >
+                                        delete
+                                    </mat-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

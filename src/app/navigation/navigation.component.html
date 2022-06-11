@@ -1,0 +1,55 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav
+        #drawer
+        class="sidenav"
+        fixedInViewport
+        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'"
+        [opened]="(isHandset$ | async) === false"
+    >
+        <mat-nav-list class="mt-5">
+            <a
+                mat-list-item
+                [routerLink]="navigationLink.path"
+                routerLinkActive="active"
+                (click)="closeDrawer(drawer)"
+                *ngFor="let navigationLink of navigationLinks"
+            >
+                <mat-icon class="material-symbols-rounded me-2">
+                    {{ navigationLink.icon }}
+                </mat-icon>
+                <span>{{ navigationLink.name }}</span>
+            </a>
+            <a mat-list-item class="mt-5" (click)="logout()">
+                <mat-icon class="material-symbols-rounded me-2">
+                    logout
+                </mat-icon>
+                <span>
+                    {{ isLoading ? "Loading..." : "Logout" }}
+                </span>
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="">
+            <button
+                type="button"
+                aria-label="Toggle sidenav"
+                mat-icon-button
+                (click)="drawer.toggle()"
+                *ngIf="isHandset$ | async"
+            >
+                <mat-icon
+                    aria-label="Side nav toggle icon"
+                    class="material-symbols-rounded"
+                >
+                    menu
+                </mat-icon>
+            </button>
+            <span class="text-uppercase">Online Book Search</span>
+        </mat-toolbar>
+        <main class="container-fluid py-4">
+            <router-outlet></router-outlet>
+        </main>
+    </mat-sidenav-content>
+</mat-sidenav-container>

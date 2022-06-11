@@ -1,0 +1,52 @@
+<section class="d-flex justify-content-center align-items-center h-100">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title mb-0">Login Form</h2>
+            </div>
+            <mat-card class="card-body">
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Username [email]</mat-label>
+                        <input
+                            matInput
+                            formControlName="username"
+                            type="text"
+                            name="username"
+                            placeholder="Enter your username"
+                            formControlName="username"
+                        />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Passowrd</mat-label>
+                        <input
+                            matInput
+                            formControlName="password"
+                            type="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            formControlName="password"
+                        />
+                    </mat-form-field>
+                    <div
+                        class="d-flex justify-content-center align-items-center"
+                    >
+                        <button
+                            type="submit"
+                            mat-raised-button
+                            class="px-5"
+                            color="primary"
+                            [disabled]="!loginForm.valid"
+                        >
+                            <span
+                                *ngIf="isLoading"
+                                class="spinner-border spinner-border-sm"
+                            ></span>
+                            {{ isLoading ? "Loading..." : "Login" }}
+                        </button>
+                    </div>
+                </form>
+            </mat-card>
+        </div>
+    </div>
+</section>

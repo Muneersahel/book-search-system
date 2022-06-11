@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+    production: false,
+    apiUrl: 'https://online-book-shop-fyp.herokuapp.com/api',
+    imageUrl: 'https://online-book-shop-fyp.herokuapp.com/storage/coverpage/',
 };
 
 /*
