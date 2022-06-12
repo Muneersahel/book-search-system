@@ -5,16 +5,16 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MaterialModule } from '../shared/modules/material.module';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../shared/guards/auth.guard';
+import { AdminGuard } from '../shared/guards/admin.guard';
 
 const routes: Routes = [
     {
         path: '',
-        canActivate: [AuthGuard],
         component: NavigationComponent,
         children: [
             {
                 path: 'admin',
-                canActivate: [AuthGuard],
+                canActivate: [AdminGuard],
                 loadChildren: () =>
                     import('../admin/admin.module').then((m) => m.AdminModule),
             },

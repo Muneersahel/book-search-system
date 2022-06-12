@@ -1,18 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject, tap } from 'rxjs';
+import { User } from 'src/app/shared/interfaces/user.interface';
 import { environment } from 'src/environments/environment';
-
-export interface User {
-    id: number;
-    name: string;
-    email: string;
-    isAdmin: boolean;
-    isActive: boolean;
-    email_verified_at: string;
-    createdAt: string;
-    updatedAt: string;
-}
 
 @Injectable({
     providedIn: 'root',
@@ -32,13 +21,12 @@ export class AuthService {
         );
     }
 
-    requestForm(username: string, password: string) {
-        return this.http
-            .post<{ message: string }>(`${this.baseUrl}/register`, {
-                email: username,
-                password: password,
-            })
-            .pipe();
+    requestForm(name: string, email: string, password: string) {
+        return this.http.post<{ message: string }>(`${this.baseUrl}/register`, {
+            name: name,
+            email: email,
+            password: password,
+        });
     }
 
     getAuthUser() {

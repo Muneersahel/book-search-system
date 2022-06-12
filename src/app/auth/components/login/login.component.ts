@@ -27,8 +27,19 @@ export class LoginComponent implements OnInit {
         this.authS.login(username, password).subscribe({
             next: (res) => {
                 this.isLoading = false;
-                if (res.message === 'Wrong Email/Password') {
+                if (
+                    typeof res.message == 'string' &&
+                    res.message === 'Wrong Email/Password'
+                ) {
                     alert('Wrong Email/Password');
+                    return;
+                }
+                if (!res.data) {
+                    alert('Your account is not approved yet, please wait');
+                    return;
+                }
+                if (!res.data.isActive) {
+                    alert('Your account is not approved yet');
                     return;
                 }
                 this.authS.saveToken(res.token);

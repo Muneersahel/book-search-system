@@ -14,7 +14,8 @@ export class AuthRequestComponent implements OnInit {
 
     constructor(private authS: AuthService, private router: Router) {
         this.requestForm = new FormGroup({
-            username: new FormControl('', [Validators.required]),
+            name: new FormControl('', [Validators.required]),
+            email: new FormControl('', [Validators.required, Validators.email]),
             password: new FormControl('', [Validators.required]),
         });
     }
@@ -23,17 +24,16 @@ export class AuthRequestComponent implements OnInit {
 
     onSubmit() {
         this.isLoading = true;
-        const { username, password } = this.requestForm.value;
-        this.authS.login(username, password).subscribe({
+        const { name, email, password } = this.requestForm.value;
+        this.authS.requestForm(name, email, password).subscribe({
             next: (res) => {
                 this.isLoading = false;
                 if (res.message === 'Wrong Email/Password') {
                     alert('Wrong Email/Password');
                     return;
                 }
-                this.authS.saveToken(res.token);
-                this.authS.saveUserObject(res.data);
-                this.router.navigate(['/admin/dashboard']);
+                alert('Your request has been sent, please wait for approval');
+                this.router.navigate(['/']);
             },
             error: (err) => {
                 this.isLoading = false;

@@ -9,6 +9,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MaterialModule } from '../shared/modules/material.module';
 import { CardsComponent } from './dashboard/cards/cards.component';
 import { BooksSummaryComponent } from './dashboard/books-summary/books-summary.component';
+import { UsersListComponent } from './users/components/users-list/users-list.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -28,6 +29,7 @@ const routes: Routes = [
         BooksComponent,
         CardsComponent,
         BooksSummaryComponent,
+        UsersListComponent,
     ],
     imports: [CommonModule, RouterModule.forChild(routes), MaterialModule],
 })

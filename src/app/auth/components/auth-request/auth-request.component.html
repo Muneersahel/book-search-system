@@ -2,19 +2,30 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-header">
-                <h2 class="card-title mb-0">Login Form</h2>
+                <h2 class="card-title mb-0">Request Form</h2>
             </div>
             <mat-card class="card-body">
                 <form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Username [email]</mat-label>
+                        <mat-label>Full Name</mat-label>
                         <input
                             matInput
-                            formControlName="username"
+                            formControlName="name"
                             type="text"
-                            name="username"
-                            placeholder="Enter your username"
-                            formControlName="username"
+                            name="name"
+                            placeholder="Enter your full name"
+                            formControlName="name"
+                        />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Email Address</mat-label>
+                        <input
+                            matInput
+                            formControlName="email"
+                            type="text"
+                            name="email"
+                            placeholder="Enter your email address"
+                            formControlName="email"
                         />
                     </mat-form-field>
                     <mat-form-field appearance="outline" class="w-100">
@@ -42,7 +53,7 @@
                                 *ngIf="isLoading"
                                 class="spinner-border spinner-border-sm"
                             ></span>
-                            {{ isLoading ? "Loading..." : "Login" }}
+                            {{ isLoading ? "Loading..." : "Send" }}
                         </button>
                     </div>
                 </form>
