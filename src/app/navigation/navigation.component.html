@@ -46,7 +46,9 @@
                     menu
                 </mat-icon>
             </button>
-            <span class="text-uppercase">Online Book Search</span>
+            <span class="text-uppercase">
+                {{ authUser?.isAdmin ? "Admin" : "Bookshop Owner" }}
+            </span>
         </mat-toolbar>
         <main class="container-fluid py-4">
             <router-outlet></router-outlet>

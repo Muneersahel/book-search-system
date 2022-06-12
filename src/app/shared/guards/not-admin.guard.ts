@@ -8,14 +8,14 @@ import {
 import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Injectable({ providedIn: 'root' })
-export class AdminGuard implements CanActivate {
+export class NotAdminGuard implements CanActivate {
     constructor(private authS: AuthService, private router: Router) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (this.authS.isAdmin()) {
+        if (!this.authS.isAdmin()) {
             return true;
         }
-        this.router.navigate(['/bookshop-owner']);
+        this.router.navigate(['/admin']);
         return false;
     }
 }

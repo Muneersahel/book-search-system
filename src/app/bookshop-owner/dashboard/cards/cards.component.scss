@@ -1,0 +1,19 @@
+.mat-card {
+    min-height: 5.5rem;
+    height: 100%;
+}
+
+.card-icon {
+    display: flex;
+    align-items: center;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    padding: 10px;
+    justify-content: center;
+}
+
+.card-icon mat-icon {
+    height: unset;
+    width: unset;
+    font-size: 3rem !important;
+}

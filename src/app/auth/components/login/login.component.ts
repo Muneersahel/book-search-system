@@ -44,7 +44,11 @@ export class LoginComponent implements OnInit {
                 }
                 this.authS.saveToken(res.token);
                 this.authS.saveUserObject(res.data);
-                this.router.navigate(['/admin/dashboard']);
+                if (res.data.isAdmin) {
+                    this.router.navigate(['admin/dashboard']);
+                } else {
+                    this.router.navigate(['/bookshop-owner/dashboard']);
+                }
             },
             error: (err) => {
                 this.isLoading = false;

@@ -30,7 +30,11 @@ export class AuthService {
     }
 
     getAuthUser() {
-        return this.http.get<User>(`${this.baseUrl}/user`);
+        return this.http.get<User>(`${this.baseUrl}/user`, {
+            headers: {
+                Authorization: `Bearer ${this.getToken()}`,
+            },
+        });
     }
 
     isAuthenticated() {

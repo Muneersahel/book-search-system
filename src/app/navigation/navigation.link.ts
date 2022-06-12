@@ -31,3 +31,21 @@ export const adminNavigationLinks: NavigationLink[] = [
         path: '/admin/categories',
     },
 ];
+
+export const bookshopOwnerNavigationLinks: NavigationLink[] = [
+    {
+        name: 'Dashboard',
+        icon: 'dashboard',
+        path: '/bookshop-owner/dashboard',
+    },
+    {
+        name: 'Bookshops',
+        icon: 'local_library',
+        path: '/bookshop-owner/bookshops',
+    },
+    {
+        name: 'Books',
+        icon: 'book',
+        path: '/bookshop-owner/books',
+    },
+];

@@ -2,9 +2,14 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { adminNavigationLinks, NavigationLink } from './navigation.link';
+import {
+    adminNavigationLinks,
+    bookshopOwnerNavigationLinks,
+    NavigationLink,
+} from './navigation.link';
 import { AuthService } from '../auth/services/auth.service';
 import { Router } from '@angular/router';
+import { User } from '../shared/interfaces/user.interface';
 
 @Component({
     selector: 'app-navigation',
@@ -14,6 +19,7 @@ import { Router } from '@angular/router';
 export class NavigationComponent {
     navigationLinks: NavigationLink[];
     isLoading: boolean = false;
+    authUser!: User;
 
     isHandset$: Observable<boolean> = this.breakpointObserver
         .observe(Breakpoints.Handset)
@@ -27,7 +33,13 @@ export class NavigationComponent {
         private authS: AuthService,
         private router: Router
     ) {
-        this.navigationLinks = this.authS.isAdmin() ? adminNavigationLinks : [];
+        this.navigationLinks = this.authS.isAdmin()
+            ? adminNavigationLinks
+            : bookshopOwnerNavigationLinks;
+
+        this.authS.getAuthUser().subscribe((user) => {
+            this.authUser = user;
+        });
     }
 
     closeDrawer(drawer: { close: () => void }) {

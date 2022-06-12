@@ -13,6 +13,8 @@ import { UsersListComponent } from './users/users-list/users-list.component';
 import { CategoryListComponent } from './categories/category-list/category-list.component';
 import { CategoryFormComponent } from './categories/category-form/category-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BookFormComponent } from './books/book-form/book-form.component';
+import { BookListComponent } from './books/book-list/book-list.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -42,6 +44,8 @@ const routes: Routes = [
         UsersListComponent,
         CategoryListComponent,
         CategoryFormComponent,
+        BookFormComponent,
+        BookListComponent,
     ],
     imports: [CommonModule, RouterModule.forChild(routes), MaterialModule, ReactiveFormsModule],
 })
