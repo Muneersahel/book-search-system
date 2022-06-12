@@ -1,0 +1,73 @@
+<section>
+    <div class="card">
+        <div class="card-header d-flex flex-column gap-3 flex-md-row justify-content-between align-items-center">
+            <h3 class="card-title mb-0">Categories</h3>
+            <button mat-raised-button color="primary" (click)="addCategory()">
+                Add Category
+            </button>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive" *ngIf="!isLoading; else Loading">
+                <table class="table" *ngIf="categories.length > 0; else noCategory">
+                    <thead class="text-black-50">
+                        <th class="p-2">S/N</th>
+                        <th class="p-2">Category Name</th>
+                        <th class="p-2">Creation Date</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let category of categories; let i = index;">
+                            <td>
+                                {{ i + 1 }}
+                            </td>
+                            <td>
+                                <span class="text-capitalize">
+                                    {{ category.name }}
+                                </span>
+                            </td>
+                            <td>
+                                {{ category.created_at | date: 'dd/mm/yyyy hh:mm' }}
+                            </td>
+
+                            <td>
+                                <button
+                                    mat-icon-button
+                                    (click)="editCategory(category)"
+                                >
+                                    <mat-icon
+                                        class="material-symbols-rounded"
+                                        color="primary"
+                                    >
+                                        edit
+                                    </mat-icon>
+                                </button>
+                                <button
+                                    mat-icon-button
+                                    (click)="deleteCategory(category)"
+                                >
+                                    <mat-icon
+                                        class="material-symbols-rounded"
+                                        color="warn"
+                                    >
+                                        delete
+                                    </mat-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <ng-template #noCategory>
+                    <div class="text-center py-5">
+                        <p>No Category Found</p>
+                    </div>
+                </ng-template>
+            </div>
+
+            <ng-template #Loading>
+                <div class="py-5 d-flex justify-content-center align-items-center">
+                     <span class="spinner-border text-primary"></span> 
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</section>

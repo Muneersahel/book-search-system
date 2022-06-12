@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { User } from 'src/app/shared/interfaces/user.interface';
-import { UsersService } from '../../services/users.service';
+import { UsersService } from '../services/users.service';
 
 @Component({
     selector: 'app-users-list',
