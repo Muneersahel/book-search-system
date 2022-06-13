@@ -16,12 +16,22 @@ import { BooksSummaryComponent } from './dashboard/books-summary/books-summary.c
 const routes: Routes = [
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     { path: 'dashboard', component: DashboardComponent },
-    { path: 'books', component: BooksComponent },
-    { path: 'books/add', component: BookFormComponent },
-    { path: 'books/:id/edit', component: BookFormComponent },
-    { path: 'bookshops', component: BookshopsComponent },
-    { path: 'bookshops/add', component: BookshopFormComponent },
-    { path: 'bookshops/:id/edit', component: BookshopFormComponent },
+    {
+        path: 'books',
+        children: [
+            { path: '', component: BooksComponent, pathMatch: 'full' },
+            { path: 'add', component: BookFormComponent },
+            { path: ':bookId/edit', component: BookFormComponent },
+        ],
+    },
+    {
+        path: 'bookshops',
+        children: [
+            { path: '', component: BookshopsComponent, pathMatch: 'full' },
+            { path: 'add', component: BookshopFormComponent },
+            { path: ':bookshopId/edit', component: BookshopFormComponent },
+        ],
+    },
 ];
 
 @NgModule({

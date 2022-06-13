@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CategoriesService } from 'src/app/admin/categories/services/categories.service';
+import { BookshopsService } from 'src/app/shared/services/bookshops.service';
 
 @Component({
     selector: 'app-bookshops-form',
@@ -9,28 +9,32 @@ import { CategoriesService } from 'src/app/admin/categories/services/categories.
     styleUrls: ['./bookshops-form.component.scss'],
 })
 export class BookshopFormComponent implements OnInit {
-    bookForm: FormGroup;
+    bookshopForm: FormGroup;
     isEdit: boolean = false;
     isLoading: boolean = false;
-    categoryId!: number;
+    bookshopId!: number;
 
     constructor(
-        private categoriesS: CategoriesService,
+        private bookshopS: BookshopsService,
         private router: Router,
         private route: ActivatedRoute
     ) {
-        this.bookForm = new FormGroup({
+        this.bookshopForm = new FormGroup({
             name: new FormControl(null, [Validators.required]),
+            location: new FormControl(null, [Validators.required]),
+            phone: new FormControl(null, [Validators.required]),
         });
 
         this.route.params.subscribe((params) => {
-            this.categoryId = params['categoryId'];
-            if (this.categoryId) {
+            this.bookshopId = params['bookshopId'];
+            if (this.bookshopId) {
                 this.isEdit = true;
-                this.categoriesS.getCategory(this.categoryId).subscribe({
+                this.bookshopS.getBookshop(this.bookshopId).subscribe({
                     next: (res) => {
-                        this.bookForm.setValue({
+                        this.bookshopForm.setValue({
                             name: res.name,
+                            location: res.location,
+                            phone: res.phone,
                         });
                     },
                     error: (err) => {
@@ -46,16 +50,20 @@ export class BookshopFormComponent implements OnInit {
     onSubmit() {
         this.isLoading = true;
         if (this.isEdit) {
-            if (!this.categoryId) {
+            if (!this.bookshopId) {
                 alert('Category ID is required');
                 return;
             }
-            this.categoriesS
-                .updateCategory(this.categoryId, this.bookForm.value.name)
+            this.bookshopS
+                .updateBookshop(this.bookshopId, this.bookshopForm.value)
                 .subscribe({
                     next: (res) => {
                         this.isLoading = false;
-                        this.router.navigate(['admin/categories']);
+                        this.router
+                            .navigate(['bookshop-owner/bookshops'])
+                            .then(() => {
+                                alert('Bookshop updated successfully');
+                            });
                     },
                     error: (err) => {
                         console.log(err);
@@ -63,18 +71,22 @@ export class BookshopFormComponent implements OnInit {
                     },
                 });
         } else {
-            this.categoriesS
-                .createCategory(this.bookForm.value.name)
-                .subscribe({
-                    next: (res) => {
-                        this.isLoading = false;
-                        this.router.navigate(['admin/categories']);
-                    },
-                    error: (err) => {
-                        console.log(err);
-                        this.isLoading = false;
-                    },
-                });
+            this.bookshopS.createBookshop(this.bookshopForm.value).subscribe({
+                next: (res) => {
+                    this.isLoading = false;
+                    console.log(res);
+
+                    this.router
+                        .navigate(['bookshop-owner/bookshops'])
+                        .then(() => {
+                            alert('Bookshop created successfully');
+                        });
+                },
+                error: (err) => {
+                    console.log(err);
+                    this.isLoading = false;
+                },
+            });
         }
     }
 }

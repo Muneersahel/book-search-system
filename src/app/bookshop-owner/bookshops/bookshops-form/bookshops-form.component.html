@@ -3,14 +3,14 @@
         class="d-flex flex-column flex-md-row justify-content-between align-items-center"
     >
         <h1>
-            {{ isEdit ? "Edit Book" : "Add Book" }}
+            {{ isEdit ? "Edit Bookshop" : "Add Bookshop" }}
         </h1>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a
                         class="text-decoration-none"
-                        routerLink="/admin/dashboard"
+                        routerLink="/bookshop-owner/dashboard"
                     >
                         Home
                     </a>
@@ -18,17 +18,17 @@
                 <li class="breadcrumb-item" aria-current="page">
                     <a
                         class="text-decoration-none text-black-50"
-                        routerLink="/admin/books"
+                        routerLink="/bookshop-owner/bookshops"
                     >
-                        Books
+                        Bookshops
                     </a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                     <a
                         class="text-decoration-none text-black-50"
                         [routerLink]="
-                            '/admin/categories' +
-                            (isEdit ? '/' + categoryId + '/edit' : '/add')
+                            '/bookshop-owner/bookshops' +
+                            (isEdit ? '/' + bookshopId + '/edit' : '/add')
                         "
                     >
                         {{ isEdit ? "Edit" : "Add" }}
@@ -39,16 +39,40 @@
     </div>
 
     <div class="card">
-        <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="bookshopForm" (ngSubmit)="onSubmit()">
             <div class="card-body">
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Book Name</mat-label>
+                    <mat-label>Bookshop Name</mat-label>
                     <input
                         matInput
                         type="text"
-                        name="book-name"
+                        name="bookshop-name"
                         formControlName="name"
-                        placeholder="Enter book name"
+                        placeholder="Enter bookshop name"
+                        required
+                    />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Bookshop Location</mat-label>
+                    <input
+                        matInput
+                        type="text"
+                        name="bookshop-location"
+                        formControlName="location"
+                        placeholder="Enter bookshop location"
+                        required
+                    />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Bookshop Phone</mat-label>
+                    <input
+                        matInput
+                        type="tel"
+                        name="bookshop-phone"
+                        formControlName="phone"
+                        placeholder="Enter bookshop phone number"
                         required
                     />
                 </mat-form-field>
@@ -59,7 +83,7 @@
                         color="primary"
                         type="submit"
                         class="px-5"
-                        [disabled]="!bookForm.valid"
+                        [disabled]="!bookshopForm.valid"
                     >
                         <span
                             class="spinner-border spinner-border-sm me-2"

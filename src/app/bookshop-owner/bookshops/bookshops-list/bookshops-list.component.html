@@ -1,37 +1,55 @@
 <section>
     <div class="card">
         <div class="card-header d-flex flex-column gap-3 flex-md-row justify-content-between align-items-center">
-            <h3 class="card-title mb-0">Books</h3>
-            <button mat-raised-button color="primary" (click)="addBook()">
-                Add Book
+            <h3 class="card-title mb-0">Bookshops</h3>
+            <button mat-raised-button color="primary" (click)="addBookshop()">
+                Add Bookshop
             </button>
         </div>
         <div class="card-body">
             <div class="table-responsive" *ngIf="!isLoading; else Loading">
-                <table class="table" *ngIf="books.length > 0; else noBook">
+                <table class="table" *ngIf="bookshops.length > 0; else noBookshop">
                     <thead class="text-black-50">
                         <th class="p-2">S/N</th>
-                        <th class="p-2">Category Name</th>
+                        <th class="p-2">Bookshop Name</th>
+                         <th class="p-2">Bookshop Location</th>
+                          <th class="p-2">Phone Number</th>
+                          <th class="p-2">Total Books</th>
                         <th class="p-2">Creation Date</th>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let book of books; let i = index;">
+                        <tr *ngFor="let bookshop of bookshops; let i = index;">
                             <td>
                                 {{ i + 1 }}
                             </td>
                             <td>
                                 <span class="text-capitalize">
-                                    {{ book.name }}
+                                    {{ bookshop.name }}
                                 </span>
                             </td>
                             <td>
-                                {{ book.created_at | date: 'dd/mm/yyyy hh:mm' }}
+                                <span class="text-capitalize">
+                                    {{ bookshop.location }}
+                                </span>
+                            </td>
+                            <td>
+                                <span class="text-capitalize">
+                                    {{ bookshop.phone }}
+                                </span>
+                            </td>
+                             <td>
+                                <span class="text-capitalize">
+                                    {{ bookshop.books.length }}
+                                </span>
+                            </td>
+                            <td>
+                                {{ bookshop.created_at | date: 'dd/mm/yyyy hh:mm' }}
                             </td>
 
                             <td>
                                 <button
                                     mat-icon-button
-                                    (click)="editBook(book)"
+                                    (click)="editBook(bookshop)"
                                 >
                                     <mat-icon
                                         class="material-symbols-rounded"
@@ -42,7 +60,7 @@
                                 </button>
                                 <button
                                     mat-icon-button
-                                    (click)="deleteBook(book)"
+                                    (click)="deleteBookshop(bookshop)"
                                 >
                                     <mat-icon
                                         class="material-symbols-rounded"
@@ -56,16 +74,16 @@
                     </tbody>
                 </table>
 
-                <ng-template #noBook>
+                <ng-template #noBookshop>
                     <div class="text-center py-5">
-                        <p>No Book Found</p>
+                        <p>No Bookshop Found</p>
                     </div>
                 </ng-template>
             </div>
 
             <ng-template #Loading>
                 <div class="py-5 d-flex justify-content-center align-items-center">
-                     <span class="spinner-border text-primary"></span> 
+                     <span class="spinner-border text-primary"></span>
                 </div>
             </ng-template>
         </div>
