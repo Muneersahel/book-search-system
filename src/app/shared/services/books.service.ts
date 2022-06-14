@@ -77,9 +77,64 @@ export class BooksService {
             );
     }
 
-    getBook(id: number) {}
+    getBook(id: number) {
+        return this.http.get<{
+            message: string;
+            data: Book;
+        }>(`${environment.apiUrl}/books/${id}`);
+    }
 
-    updateBook(bookId: number, book: Book) {}
+    updateBook(bookForm: Book) {
+        const bookId = bookForm.id;
+        const bookFormData = new FormData();
+        bookFormData.append('name', bookForm.name);
+        bookFormData.append('author', bookForm.author);
+        bookFormData.append('items', bookForm.items.toString());
+        bookFormData.append('price', bookForm.price.toString());
+        bookFormData.append('book_shop_id', bookForm.book_shop_id.toString());
+        bookFormData.append('category_id', bookForm.category_id.toString());
+        if (bookForm.cover) {
+            bookFormData.append('cover', bookForm.cover);
+        }
 
-    deleteBook(id: number) {}
+        return this.http
+            .put<{
+                message: string;
+                data: Book;
+            }>(`${environment.apiUrl}/books/${bookId}`, bookFormData, {
+                headers: {
+                    Authorization: `Bearer ${this.authS.getToken()}`,
+                },
+            })
+            .pipe(
+                tap((res) => {
+                    const bookIndex = this.bookList.findIndex(
+                        (book) => book.id === bookId
+                    );
+                    this.bookList[bookIndex] = res.data;
+                    this.bookListSubject.next(this.bookList);
+                })
+            );
+    }
+
+    deleteBook(bookId: number) {
+        return this.http
+            .delete<{
+                message: string;
+                data: string;
+            }>(`${environment.apiUrl}/books/${bookId}`, {
+                headers: {
+                    Authorization: `Bearer ${this.authS.getToken()}`,
+                },
+            })
+            .pipe(
+                tap((res) => {
+                    const bookIndex = this.bookList.findIndex(
+                        (book) => book.id === bookId
+                    );
+                    this.bookList.splice(bookIndex, 1);
+                    this.bookListSubject.next(this.bookList);
+                })
+            );
+    }
 }

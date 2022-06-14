@@ -98,6 +98,17 @@
                     (change)="onFileChange($event)"
                 />
 
+                <div *ngIf="isEdit && !!book">
+                    <h3 class="fw-bold">Current Cover</h3>
+                    <div class="img-preview">
+                        <img
+                            class="img-fluid"
+                            [src]="imgBaseURL + book.cover"
+                            alt="book cover"
+                        />
+                    </div>
+                </div>
+
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Book Category</mat-label>
                     <mat-select

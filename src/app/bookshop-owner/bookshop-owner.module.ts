@@ -12,6 +12,7 @@ import { BookshopListComponent } from './bookshops/bookshops-list/bookshops-list
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CardsComponent } from './dashboard/cards/cards.component';
 import { BooksSummaryComponent } from './dashboard/books-summary/books-summary.component';
+import { SharedModule } from '../shared/modules/shared.module';
 
 const routes: Routes = [
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -51,6 +52,7 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         MaterialModule,
         ReactiveFormsModule,
+        SharedModule
     ],
 })
 export class BookshopOwnerModule {}

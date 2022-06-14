@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Book } from 'src/app/shared/interfaces/book.interface';
 import { BooksService } from 'src/app/shared/services/books.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-books-summary',
@@ -10,6 +11,7 @@ import { BooksService } from 'src/app/shared/services/books.service';
 export class BooksSummaryComponent implements OnInit {
     @Input() books: Book[] = [];
     @Input() isLoading: boolean = false;
+    imageBaseURL = environment.imageUrl;
 
     constructor(private bookS: BooksService) {}
 

@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CategoriesService } from 'src/app/admin/categories/services/categories.service';
-import { AuthService } from 'src/app/auth/services/auth.service';
+import { Book } from 'src/app/shared/interfaces/book.interface';
 import { Bookshop } from 'src/app/shared/interfaces/bookshop.interface';
 import { Category } from 'src/app/shared/interfaces/category.interface';
 import { BooksService } from 'src/app/shared/services/books.service';
 import { BookshopsService } from 'src/app/shared/services/bookshops.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-book-form',
@@ -20,14 +21,15 @@ export class BookFormComponent implements OnInit {
     categories: Category[] = [];
     userBookshops: Bookshop[] = [];
     bookId!: number;
-    selectedFile: File = new File([], '');
+    imgBaseURL = environment.imageUrl;
+    book!: Book;
+    selectedFile!: File;
 
     constructor(
         private categoriesS: CategoriesService,
         private bookshopS: BookshopsService,
         private bookS: BooksService,
         private router: Router,
-        private authS: AuthService,
         private route: ActivatedRoute
     ) {
         this.bookForm = new FormGroup({
@@ -43,16 +45,22 @@ export class BookFormComponent implements OnInit {
             this.bookId = params['bookId'];
             if (this.bookId) {
                 this.isEdit = true;
-                // this.bookS.getBook(this.bookId).subscribe({
-                //     next: (res) => {
-                //         this.bookForm.setValue({
-                //             name: res.name,
-                //         });
-                //     },
-                //     error: (err) => {
-                //         console.log(err);
-                //     },
-                // });
+                this.bookS.getBook(this.bookId).subscribe({
+                    next: (res) => {
+                        this.book = res.data;
+                        this.bookForm.setValue({
+                            name: res.data.name,
+                            author: res.data.author,
+                            items: res.data.items,
+                            price: res.data.price,
+                            category_id: res.data.category.id,
+                            book_shop_id: res.data.book_shop.id,
+                        });
+                    },
+                    error: (err) => {
+                        console.log(err);
+                    },
+                });
             }
         });
     }
@@ -94,20 +102,29 @@ export class BookFormComponent implements OnInit {
                 alert('Category ID is required');
                 return;
             }
-            this.bookS.updateBook(this.bookId, {
+            let bookForm = {
+                id: this.bookId,
                 ...this.bookForm.value,
-                cover: this.selectedFile,
+            };
+            if (this.selectedFile) {
+                bookForm = {
+                    ...bookForm,
+                    cover: this.selectedFile,
+                };
+            }
+
+            this.bookS.updateBook(bookForm).subscribe({
+                next: (res) => {
+                    console.log(res);
+
+                    this.isLoading = false;
+                    this.router.navigate(['bookshop-owner/books']);
+                },
+                error: (err) => {
+                    console.log(err);
+                    this.isLoading = false;
+                },
             });
-            // .subscribe({
-            //     next: (res) => {
-            //         this.isLoading = false;
-            //         this.router.navigate(['bookshop-owner/books']);
-            //     },
-            //     error: (err) => {
-            //         console.log(err);
-            //         this.isLoading = false;
-            //     },
-            // });
         } else {
             this.bookS
                 .createBook({
@@ -116,7 +133,6 @@ export class BookFormComponent implements OnInit {
                 })
                 .subscribe({
                     next: (res) => {
-                        console.log(res);
                         this.isLoading = false;
                         this.router
                             .navigate(['bookshop-owner/books'])

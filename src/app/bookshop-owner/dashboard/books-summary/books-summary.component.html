@@ -17,59 +17,39 @@
                         <th class="p-2">Price (TSh)</th>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let book of books">
+                        <tr *ngFor="let book of books.slice(0, 5); let i = index;">
                             <td>
-                                {{ 1 }}
+                                {{ i + 1 }}
                             </td>
                             <td>
-                                <img [src]="book.cover" alt="" />
+                                <img [src]="imageBaseURL + book.cover" alt="" />
                             </td>
                             <td>
-                                {{ book.name }}
+                                <span class="text-capitalize">{{ book.name }}</span>
                             </td>
                             <td>
-                                {{ book.author }}
+                                <span class="text-capitalize">{{ book.author }}</span>
                             </td>
                             <td>
-                                <!-- {{ book.category }} -->
+                                <span class="text-capitalize">{{ book.category_id | category | async}}</span>
                             </td>
                             <td>
-                                <!-- {{ book.bookShop }} -->
+                                <span class="text-capitalize">{{ book.book_shop_id | bookshop | async}}</span>
                             </td>
                             <td>
-                                <!-- {{ book.quantity }} -->
+                                {{ book.items }}
                             </td>
                             <td>
-                                {{ book.price }}
-                            </td>
-
-                            <td>
-                                <button
-                                    mat-icon-button
-                                    (click)="editBook(book)"
-                                >
-                                    <mat-icon
-                                        class="material-symbols-rounded"
-                                        color="primary"
-                                    >
-                                        edit
-                                    </mat-icon>
-                                </button>
-                                <button
-                                    mat-icon-button
-                                    (click)="deleteBook(book)"
-                                >
-                                    <mat-icon
-                                        class="material-symbols-rounded"
-                                        color="warn"
-                                    >
-                                        delete
-                                    </mat-icon>
-                                </button>
+                                {{ book.price | currency: 'Tsh ': 'symbol': '2.0'  }}
                             </td>
                         </tr>
                     </tbody>
                 </table>
+               <div class="text-end">
+                    <a routerLink="/bookshop-owner/books"class="link-primary">
+                        View All
+                    </a>
+               </div>
                 <ng-template #noBooks>
                     <div class="alert alert-info text-center">
                         <h3 class="alert-heading">No Books!</h3>

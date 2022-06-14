@@ -13,3 +13,20 @@ body {
 td {
     vertical-align: middle;
 }
+
+table {
+    img {
+        height: 6rem;
+        object-fit: cover;
+    }
+}
+
+.img-preview {
+    height: 6rem;
+    object-fit: cover;
+    margin: 1rem auto;
+    img {
+        width: auto;
+        height: 100%;
+    }
+}

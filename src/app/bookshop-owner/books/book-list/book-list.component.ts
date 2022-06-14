@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Book } from 'src/app/shared/interfaces/book.interface';
 import { BooksService } from 'src/app/shared/services/books.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-book-list',
@@ -11,6 +12,7 @@ import { BooksService } from 'src/app/shared/services/books.service';
 export class BookListComponent implements OnInit {
     books: Book[] = [];
     isLoading: boolean = false;
+    imgBaseURL = environment.imageUrl;
 
     constructor(private bookS: BooksService, private router: Router) {}
 
@@ -43,14 +45,15 @@ export class BookListComponent implements OnInit {
 
     deleteBook(book: Book) {
         if (confirm('Are you sure you want to delete this book?')) {
-            // this.bookS.deleteBook(book.id).subscribe({
-            //     next: (res) => {
-            //         alert('Book deleted successfully!');
-            //     },
-            //     error: (err) => {
-            //         console.log(err);
-            //     },
-            // });
+            this.bookS.deleteBook(book.id).subscribe({
+                next: (res) => {
+                    console.log(res);
+                    alert('Book deleted successfully!');
+                },
+                error: (err) => {
+                    console.log(err);
+                },
+            });
         }
     }
 }
