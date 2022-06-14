@@ -5,7 +5,7 @@ import { Category } from 'src/app/shared/interfaces/category.interface';
 import { User } from 'src/app/shared/interfaces/user.interface';
 import { BooksService } from 'src/app/shared/services/books.service';
 import { BookshopsService } from 'src/app/shared/services/bookshops.service';
-import { CategoriesService } from '../categories/services/categories.service';
+import { CategoriesService } from '../../shared/services/categories.service';
 import { UsersService } from '../users/services/users.service';
 
 @Component({

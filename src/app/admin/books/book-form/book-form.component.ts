@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CategoriesService } from '../../categories/services/categories.service';
+import { CategoriesService } from '../../../shared/services/categories.service';
 
 @Component({
     selector: 'app-book-form',

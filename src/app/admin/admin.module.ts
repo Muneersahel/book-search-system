@@ -15,6 +15,8 @@ import { CategoryFormComponent } from './categories/category-form/category-form.
 import { ReactiveFormsModule } from '@angular/forms';
 import { BookFormComponent } from './books/book-form/book-form.component';
 import { BookListComponent } from './books/book-list/book-list.component';
+import { SharedModule } from '../shared/modules/shared.module';
+import { BookshopListComponent } from './bookshops/bookshops-list/bookshops-list.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -46,7 +48,14 @@ const routes: Routes = [
         CategoryFormComponent,
         BookFormComponent,
         BookListComponent,
+        BookshopListComponent,
     ],
-    imports: [CommonModule, RouterModule.forChild(routes), MaterialModule, ReactiveFormsModule],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        MaterialModule,
+        ReactiveFormsModule,
+        SharedModule,
+    ],
 })
 export class AdminModule {}

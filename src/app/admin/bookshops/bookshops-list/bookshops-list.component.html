@@ -2,9 +2,6 @@
     <div class="card">
         <div class="card-header d-flex flex-column gap-3 flex-md-row justify-content-between align-items-center">
             <h3 class="card-title mb-0">Bookshops</h3>
-            <button mat-raised-button color="primary" (click)="addBookshop()">
-                Add Bookshop
-            </button>
         </div>
         <div class="card-body">
             <div class="table-responsive" *ngIf="!isLoading; else Loading">
@@ -44,31 +41,6 @@
                             </td>
                             <td>
                                 {{ bookshop.created_at | date: 'dd/mm/yyyy hh:mm' }}
-                            </td>
-
-                            <td>
-                                <button
-                                    mat-icon-button
-                                    (click)="editBook(bookshop)"
-                                >
-                                    <mat-icon
-                                        class="material-symbols-rounded"
-                                        color="primary"
-                                    >
-                                        edit
-                                    </mat-icon>
-                                </button>
-                                <button
-                                    mat-icon-button
-                                    (click)="deleteBookshop(bookshop)"
-                                >
-                                    <mat-icon
-                                        class="material-symbols-rounded"
-                                        color="warn"
-                                    >
-                                        delete
-                                    </mat-icon>
-                                </button>
                             </td>
                         </tr>
                     </tbody>

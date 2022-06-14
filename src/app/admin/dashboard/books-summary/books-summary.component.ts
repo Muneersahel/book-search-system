@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Book } from 'src/app/shared/interfaces/book.interface';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-books-summary',
@@ -9,6 +10,7 @@ import { Book } from 'src/app/shared/interfaces/book.interface';
 export class BooksSummaryComponent implements OnInit {
     @Input() books!: Book[];
     @Input() isLoading: boolean = false;
+    imageBaseURL = environment.imageUrl;
 
     constructor() {}
 

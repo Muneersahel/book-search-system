@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CategoriesService } from '../services/categories.service';
+import { CategoriesService } from '../../../shared/services/categories.service';
 
 @Component({
     selector: 'app-category-form',
@@ -55,7 +55,9 @@ export class CategoryFormComponent implements OnInit {
                 .subscribe({
                     next: (res) => {
                         this.isLoading = false;
-                        this.router.navigate(['admin/categories']);
+                        this.router.navigate(['admin/categories']).then(() => {
+                            alert('Category updated successfully');
+                        });
                     },
                     error: (err) => {
                         console.log(err);
@@ -68,7 +70,9 @@ export class CategoryFormComponent implements OnInit {
                 .subscribe({
                     next: (res) => {
                         this.isLoading = false;
-                        this.router.navigate(['admin/categories']);
+                        this.router.navigate(['admin/categories']).then(() => {
+                            alert('Category created successfully');
+                        });
                     },
                     error: (err) => {
                         console.log(err);

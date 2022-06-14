@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CategoriesService } from 'src/app/admin/categories/services/categories.service';
+import { CategoriesService } from 'src/app/shared/services/categories.service';
 import { Book } from 'src/app/shared/interfaces/book.interface';
 import { Bookshop } from 'src/app/shared/interfaces/bookshop.interface';
 import { Category } from 'src/app/shared/interfaces/category.interface';

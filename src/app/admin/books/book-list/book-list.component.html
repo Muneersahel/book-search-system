@@ -1,72 +1,62 @@
 <section>
     <div class="card">
-        <div class="card-header d-flex flex-column gap-3 flex-md-row justify-content-between align-items-center">
-            <h3 class="card-title mb-0">Categories</h3>
-            <button mat-raised-button color="primary" (click)="addBook()">
-                Add Category
-            </button>
+        <div
+            class="card-header d-flex flex-column gap-3 flex-md-row justify-content-between align-items-center"
+        >
+            <h3 class="card-title mb-0">Books</h3>
         </div>
         <div class="card-body">
-            <div class="table-responsive" *ngIf="!isLoading; else Loading">
-                <table class="table" *ngIf="categories.length > 0; else noCategory">
+            <div class="table-responsive" *ngIf="!isLoading; else loading">
+                <table class="table" *ngIf="books.length > 0; else noBooks">
                     <thead class="text-black-50">
                         <th class="p-2">S/N</th>
-                        <th class="p-2">Category Name</th>
-                        <th class="p-2">Creation Date</th>
+                        <th class="p-2">Book Cover</th>
+                        <th class="p-2">Book Name</th>
+                        <th class="p-2">Author</th>
+                        <th class="p-2">Category</th>
+                        <th class="p-2">Bookshop</th>
+                        <th class="p-2">Quantity</th>
+                        <th class="p-2">Price (TSh)</th>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let category of categories; let i = index;">
+                        <tr *ngFor="let book of books; let i = index;">
                             <td>
                                 {{ i + 1 }}
                             </td>
                             <td>
-                                <span class="text-capitalize">
-                                    {{ category.name }}
-                                </span>
+                                <img [src]="imgBaseURL + book.cover" alt="" />
                             </td>
                             <td>
-                                {{ category.created_at | date: 'dd/mm/yyyy hh:mm' }}
+                                <span class="text-capitalize">{{ book.name }}</span>
                             </td>
-
                             <td>
-                                <button
-                                    mat-icon-button
-                                    (click)="editBook(category)"
-                                >
-                                    <mat-icon
-                                        class="material-symbols-rounded"
-                                        color="primary"
-                                    >
-                                        edit
-                                    </mat-icon>
-                                </button>
-                                <button
-                                    mat-icon-button
-                                    (click)="deleteBook(category)"
-                                >
-                                    <mat-icon
-                                        class="material-symbols-rounded"
-                                        color="warn"
-                                    >
-                                        delete
-                                    </mat-icon>
-                                </button>
+                                <span class="text-capitalize">{{ book.author }}</span>
+                            </td>
+                            <td>
+                                <span class="text-capitalize">{{ book.category_id | category | async }}</span>
+                            </td>
+                            <td>
+                                <span class="text-capitalize">{{ book.book_shop_id | bookshop | async}}</span>
+                            </td>
+                            <td>
+                                {{ book.items }}
+                            </td>
+                            <td>
+                                {{ book.price | currency: 'Tsh ': 'symbol': '2.0' }}
                             </td>
                         </tr>
                     </tbody>
                 </table>
-
-                <ng-template #noCategory>
-                      <div class="alert alert-info text-center">
-                        <h3 class="alert-heading">No book!</h3>
-                        <p>There are no book in the database.</p>
+                <ng-template #noBooks>
+                    <div class="alert alert-info text-center">
+                        <h3 class="alert-heading">No Books!</h3>
+                        <p>There are no books in the database.</p>
                     </div>
                 </ng-template>
             </div>
-
-            <ng-template #Loading>
-                <div class="py-5 d-flex justify-content-center align-items-center">
-                     <span class="spinner-border text-primary"></span>
+            <ng-template #loading>
+                <div class="py-5 text-center">
+                    <span class="spinner-border text-primary"></span>
                 </div>
             </ng-template>
         </div>

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Category } from 'src/app/shared/interfaces/category.interface';
-import { CategoriesService } from '../../categories/services/categories.service';
+import { Book } from 'src/app/shared/interfaces/book.interface';
+import { BooksService } from 'src/app/shared/services/books.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-book-list',
@@ -9,25 +10,22 @@ import { CategoriesService } from '../../categories/services/categories.service'
     styleUrls: ['./book-list.component.scss'],
 })
 export class BookListComponent implements OnInit {
-    categories: Category[] = [];
-    books: any[] = [];
+    books: Book[] = [];
     isLoading: boolean = false;
+    imgBaseURL = environment.imageUrl;
 
-    constructor(
-        private categoriesS: CategoriesService,
-        private router: Router
-    ) {}
+    constructor(private bookS: BooksService, private router: Router) {}
 
     ngOnInit(): void {
-        this.getCategories();
+        this.getBooks();
     }
 
-    getCategories() {
+    getBooks() {
         this.isLoading = true;
-        this.categoriesS.getCategories().subscribe();
-        this.categoriesS.categoriesObservable.subscribe({
+        this.bookS.getBooks().subscribe();
+        this.bookS.bookListObservable.subscribe({
             next: (res) => {
-                this.categories = res;
+                this.books = res;
                 this.isLoading = false;
             },
             error: (err) => {
@@ -35,26 +33,5 @@ export class BookListComponent implements OnInit {
                 this.isLoading = false;
             },
         });
-    }
-
-    addBook() {
-        this.router.navigate(['admin/books/add']);
-    }
-
-    editBook(category: any) {
-        this.router.navigate(['admin/categories/', category.id, 'edit']);
-    }
-
-    deleteBook(category: any) {
-        if (confirm('Are you sure you want to delete this book?')) {
-            this.categoriesS.deleteCategory(category.id).subscribe({
-                next: (res) => {
-                    alert('Category deleted successfully!');
-                },
-                error: (err) => {
-                    console.log(err);
-                },
-            });
-        }
     }
 }

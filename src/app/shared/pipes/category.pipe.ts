@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { CategoriesService } from 'src/app/admin/categories/services/categories.service';
+import { CategoriesService } from 'src/app/shared/services/categories.service';
 
 @Pipe({
     name: 'category',
