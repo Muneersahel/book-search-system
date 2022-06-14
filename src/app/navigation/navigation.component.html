@@ -24,7 +24,11 @@
                 <mat-icon class="material-symbols-rounded me-2">
                     logout
                 </mat-icon>
-                <span>
+                <span class="d-flex align-items-center">
+                    <span
+                        *ngIf="isLoading"
+                        class="spinner-border spinner-border-sm text-primary"
+                    ></span>
                     {{ isLoading ? "Loading..." : "Logout" }}
                 </span>
             </a>
