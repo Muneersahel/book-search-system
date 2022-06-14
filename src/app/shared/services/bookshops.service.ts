@@ -4,6 +4,7 @@ import { map, Subject, tap } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { environment } from 'src/environments/environment';
 import { Bookshop } from '../interfaces/bookshop.interface';
+import { UserInfo } from '../interfaces/userinfo.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -88,6 +89,26 @@ export class BookshopsService {
                 tap((res) => {
                     this.bookshopList = res.data;
                     this.bookshopListSubject.next([...this.bookshopList]);
+                })
+            );
+    }
+
+    getAuthUserBookshops() {
+        return this.http
+            .get<[UserInfo]>(
+                `${environment.apiUrl}/userinfo/${
+                    this.authS.getUserObject()?.id
+                }`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${this.authS.getToken()}`,
+                    },
+                }
+            )
+            .pipe(
+                tap((res) => {
+                    this.bookshopList = res[0].book_shops;
+                    this.bookshopListSubject.next(this.bookshopList);
                 })
             );
     }

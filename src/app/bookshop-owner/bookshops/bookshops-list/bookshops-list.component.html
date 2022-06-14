@@ -8,7 +8,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive" *ngIf="!isLoading; else Loading">
-                <table class="table" *ngIf="bookshops.length > 0; else noBookshop">
+                <table class="table" *ngIf="bookshops &&  bookshops.length > 0">
                     <thead class="text-black-50">
                         <th class="p-2">S/N</th>
                         <th class="p-2">Bookshop Name</th>
@@ -39,7 +39,7 @@
                             </td>
                              <td>
                                 <span class="text-capitalize">
-                                    {{ bookshop.books.length }}
+                                    {{ books?.length }}
                                 </span>
                             </td>
                             <td>
@@ -74,11 +74,12 @@
                     </tbody>
                 </table>
 
-                <ng-template #noBookshop>
-                    <div class="text-center py-5">
-                        <p>No Bookshop Found</p>
+                <div *ngIf="bookshops && bookshops.length === 0">
+                      <div class="alert alert-info text-center">
+                        <h3 class="alert-heading">No bookshop!</h3>
+                        <p>There are no bookshop in the database.</p>
                     </div>
-                </ng-template>
+                </div>
             </div>
 
             <ng-template #Loading>

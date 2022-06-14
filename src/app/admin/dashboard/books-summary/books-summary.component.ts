@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Book } from 'src/app/shared/interfaces/book.interface';
 
 @Component({
     selector: 'app-books-summary',
@@ -6,26 +7,8 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./books-summary.component.scss'],
 })
 export class BooksSummaryComponent implements OnInit {
-    books = [
-        {
-            cover: 'https://www.mswordcoverpages.com/wp-content/uploads/2018/10/Book-cover-page-5-CRC.png',
-            name: 'The Lord of the Rings',
-            author: 'J.R.R. Tolkien',
-            category: 'Fantasy',
-            bookShop: 'Amazon',
-            quantity: '10',
-            price: '$19.99',
-        },
-        {
-            cover: 'https://www.mswordcoverpages.com/wp-content/uploads/2018/10/Book-cover-page-5-CRC.png',
-            name: 'The Lord of the Rings',
-            author: 'J.R.R. Tolkien',
-            category: 'Fantasy',
-            bookShop: 'Amazon',
-            quantity: '10',
-            price: '$19.99',
-        },
-    ];
+    @Input() books!: Book[];
+    @Input() isLoading: boolean = false;
 
     constructor() {}
 

@@ -24,7 +24,15 @@
     </div>
 
     <div class="d-flex flex-column gap-4">
-        <app-cards></app-cards>
-        <app-books-summary></app-books-summary>
+        <app-cards
+            [bookLength]="books.length"
+            [bookshopLength]="bookshops.length"
+            [categoriesLength]="categories.length"
+            [usersLength]="users.length"
+        ></app-cards>
+        <app-books-summary
+            [books]="books!"
+            [isLoading]="isLoading"
+        ></app-books-summary>
     </div>
 </section>

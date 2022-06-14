@@ -18,7 +18,7 @@
                 <li class="breadcrumb-item" aria-current="page">
                     <a
                         class="text-decoration-none text-black-50"
-                        routerLink="/admin/books"
+                        routerLink="/bookshop-owner/books"
                     >
                         Books
                     </a>
@@ -27,8 +27,8 @@
                     <a
                         class="text-decoration-none text-black-50"
                         [routerLink]="
-                            '/admin/categories' +
-                            (isEdit ? '/' + categoryId + '/edit' : '/add')
+                            '/bookshop-owner/books' +
+                            (isEdit ? '/' + bookId + '/edit' : '/add')
                         "
                     >
                         {{ isEdit ? "Edit" : "Add" }}
@@ -51,6 +51,87 @@
                         placeholder="Enter book name"
                         required
                     />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Book Author</mat-label>
+                    <input
+                        matInput
+                        type="text"
+                        name="book-author"
+                        formControlName="author"
+                        placeholder="Enter book author"
+                        required
+                    />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Book Price</mat-label>
+                    <input
+                        matInput
+                        type="number"
+                        name="book-price"
+                        formControlName="price"
+                        placeholder="Enter book price"
+                        required
+                    />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Book Quantity</mat-label>
+                    <input
+                        matInput
+                        type="number"
+                        name="book-quantity"
+                        formControlName="items"
+                        placeholder="Enter book quantity"
+                        required
+                    />
+                </mat-form-field>
+
+                <label class="form-label">Book Cover</label>
+                <input
+                    type="file"
+                    class="form-control mb-3"
+                    name="book-cover"
+                    required
+                    (change)="onFileChange($event)"
+                />
+
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Book Category</mat-label>
+                    <mat-select
+                        formControlName="category_id"
+                        name="category"
+                        required
+                    >
+                        <mat-option
+                            *ngFor="let category of categories"
+                            [value]="category.id"
+                        >
+                            <span class="text-capitalize">
+                                {{ category.name }}
+                            </span>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Bookshop</mat-label>
+                    <mat-select
+                        formControlName="book_shop_id"
+                        name="bookshop"
+                        required
+                    >
+                        <mat-option
+                            *ngFor="let bookshop of userBookshops"
+                            [value]="bookshop.id"
+                        >
+                            <span class="text-capitalize">
+                                {{ bookshop.name }}
+                            </span>
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
 
                 <div class="d-flex justify-content-center align-items-center">

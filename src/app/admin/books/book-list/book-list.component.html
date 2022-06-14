@@ -57,15 +57,16 @@
                 </table>
 
                 <ng-template #noCategory>
-                    <div class="text-center py-5">
-                        <p>No Category Found</p>
+                      <div class="alert alert-info text-center">
+                        <h3 class="alert-heading">No book!</h3>
+                        <p>There are no book in the database.</p>
                     </div>
                 </ng-template>
             </div>
 
             <ng-template #Loading>
                 <div class="py-5 d-flex justify-content-center align-items-center">
-                     <span class="spinner-border text-primary"></span> 
+                     <span class="spinner-border text-primary"></span>
                 </div>
             </ng-template>
         </div>

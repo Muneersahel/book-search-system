@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CategoriesService } from 'src/app/admin/categories/services/categories.service';
-import { Category } from 'src/app/shared/interfaces/category.interface';
+import { Book } from 'src/app/shared/interfaces/book.interface';
+import { BooksService } from 'src/app/shared/services/books.service';
 
 @Component({
     selector: 'app-book-list',
@@ -9,13 +9,10 @@ import { Category } from 'src/app/shared/interfaces/category.interface';
     styleUrls: ['./book-list.component.scss'],
 })
 export class BookListComponent implements OnInit {
-    books: Category[] = [];
+    books: Book[] = [];
     isLoading: boolean = false;
 
-    constructor(
-        private categoriesS: CategoriesService,
-        private router: Router
-    ) {}
+    constructor(private bookS: BooksService, private router: Router) {}
 
     ngOnInit(): void {
         this.getBooks();
@@ -23,8 +20,8 @@ export class BookListComponent implements OnInit {
 
     getBooks() {
         this.isLoading = true;
-        this.categoriesS.getCategories().subscribe();
-        this.categoriesS.categoriesObservable.subscribe({
+        this.bookS.getUserBooks().subscribe();
+        this.bookS.bookListObservable.subscribe({
             next: (res) => {
                 this.books = res;
                 this.isLoading = false;
@@ -37,23 +34,23 @@ export class BookListComponent implements OnInit {
     }
 
     addBook() {
-        this.router.navigate(['admin/categories/add']);
+        this.router.navigate(['bookshop-owner/books/add']);
     }
 
-    editBook(category: any) {
-        this.router.navigate(['admin/categories/', category.id, 'edit']);
+    editBook(book: Book) {
+        this.router.navigate(['bookshop-owner/books/', book.id, 'edit']);
     }
 
-    deleteBook(category: any) {
-        if (confirm('Are you sure you want to delete this category?')) {
-            this.categoriesS.deleteCategory(category.id).subscribe({
-                next: (res) => {
-                    alert('Category deleted successfully!');
-                },
-                error: (err) => {
-                    console.log(err);
-                },
-            });
+    deleteBook(book: Book) {
+        if (confirm('Are you sure you want to delete this book?')) {
+            // this.bookS.deleteBook(book.id).subscribe({
+            //     next: (res) => {
+            //         alert('Book deleted successfully!');
+            //     },
+            //     error: (err) => {
+            //         console.log(err);
+            //     },
+            // });
         }
     }
 }
