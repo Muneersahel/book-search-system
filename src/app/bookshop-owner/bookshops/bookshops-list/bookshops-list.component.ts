@@ -29,6 +29,8 @@ export class BookshopListComponent implements OnInit {
         this.bookshopS.getAuthUserBookshops().subscribe();
         this.bookshopS.bookshopListObservable.subscribe({
             next: (res) => {
+                console.log(res);
+
                 this.bookshops = res;
                 this.isLoading = false;
             },
