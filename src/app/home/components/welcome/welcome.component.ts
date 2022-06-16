@@ -1,15 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 @Component({
-  selector: 'app-welcome',
-  templateUrl: './welcome.component.html',
-  styleUrls: ['./welcome.component.scss']
+    selector: 'app-welcome',
+    templateUrl: './welcome.component.html',
+    styleUrls: ['./welcome.component.scss'],
 })
 export class WelcomeComponent implements OnInit {
+    searchTerm: string = '';
 
-  constructor() { }
+    constructor(private router: Router) {}
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {}
 
+    search(): void {
+        this.router.navigate(['/search'], {
+            queryParams: { q: this.searchTerm },
+        });
+    }
 }

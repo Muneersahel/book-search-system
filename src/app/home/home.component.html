@@ -1,0 +1,57 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav
+        #drawer
+        class="sidenav"
+        fixedInViewport
+        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'"
+        [opened]="false"
+    >
+        <mat-nav-list class="mt-5">
+            <a
+                mat-list-item
+                [routerLink]=""
+                routerLinkActive="active"
+                (click)="closeDrawer(drawer)"
+            >
+                <mat-icon class="material-symbols-rounded me-2">
+                    login
+                </mat-icon>
+                <span>Login</span>
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar
+            color="primary"
+            class="d-flex justify-content-between align-items-center"
+        >
+            <div>
+                <button
+                    type="button"
+                    aria-label="Toggle sidenav"
+                    mat-icon-button
+                    (click)="drawer.toggle()"
+                    *ngIf="isHandset$ | async"
+                >
+                    <mat-icon
+                        aria-label="Side nav toggle icon"
+                        class="material-symbols-rounded"
+                    >
+                        menu
+                    </mat-icon>
+                </button>
+                <span class="text-uppercase"> ONLINE BOOK SEARCH SYSTEM </span>
+            </div>
+            <mat-list class="d-flex" *ngIf="(isHandset$ | async) == false">
+                <a mat-list-item routerLink="/">Home</a>
+                <a mat-list-item routerLink="/bookshops">Bookshops</a>
+                <a mat-list-item *ngIf="!isAuthenticated" routerLink="/login">
+                    Login
+                </a>
+                <a mat-list-item *ngIf="isAuthenticated">Dashboard</a>
+            </mat-list>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

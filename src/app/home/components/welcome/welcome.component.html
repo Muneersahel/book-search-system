@@ -1,1 +1,36 @@
-<p>welcome works!</p>
+<section class="welcome-wrapper">
+    <div class="welcome-content container">
+        <h1 class="text-center">Welcome to the Online Book Search System</h1>
+        <p class="text-center">
+            This is a simple web application that allows you to search for books
+            by entering keywords.
+        </p>
+        <div class="search-bar d-flex justify-content-center mt-5">
+            <form (ngSubmit)="search()" class="w-100" action="">
+                <div class="input-group">
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="search"
+                        placeholder="Search for a book"
+                        aria-label="Search for a book"
+                        aria-describedby="search-button"
+                        [(ngModel)]="searchTerm"
+                    />
+                    <div class="input-group-append">
+                        <button
+                            class="px-4 ms-4"
+                            type="button"
+                            id="search-button"
+                            mat-flat-button
+                            color="primary"
+                            (click)="search()"
+                        >
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
