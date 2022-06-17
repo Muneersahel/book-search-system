@@ -13,6 +13,8 @@ export class HomeComponent implements OnInit {
     isLoading: boolean = false;
     authUser!: User;
     isAuthenticated: boolean = false;
+    isAdmin: boolean = false;
+    dashboardRoute: string = '/bookshop-owner/dashboard';
 
     isHandset$: Observable<boolean> = this.breakpointObserver
         .observe(Breakpoints.Handset)
@@ -23,11 +25,17 @@ export class HomeComponent implements OnInit {
     constructor(
         private breakpointObserver: BreakpointObserver,
         private authS: AuthService
-    ) {}
-
-    ngOnInit(): void {
+    ) {
+        this.isAdmin = this.isAuthenticated
+            ? this.authS.getUserObject()?.isAdmin!
+            : false;
         this.isAuthenticated = this.authS.isAuthenticated();
+        this.dashboardRoute = this.isAdmin
+            ? '/admin/dashboard'
+            : '/bookshop-owner/dashboard';
     }
+
+    ngOnInit(): void {}
 
     closeDrawer(drawer: { close: () => void }) {
         this.breakpointObserver

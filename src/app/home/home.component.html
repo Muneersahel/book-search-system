@@ -8,16 +8,29 @@
         [opened]="false"
     >
         <mat-nav-list class="mt-5">
+            <a mat-list-item routerLink="/">Home</a>
+            <!-- <a mat-list-item routerLink="/bookshops">Bookshops</a> -->
             <a
                 mat-list-item
-                [routerLink]=""
-                routerLinkActive="active"
+                *ngIf="isAuthenticated"
+                [routerLink]="dashboardRoute"
+                >Dashboard</a
+            >
+            <a
+                mat-list-item
+                routerLink="login"
+                *ngIf="!isAuthenticated"
                 (click)="closeDrawer(drawer)"
             >
-                <mat-icon class="material-symbols-rounded me-2">
-                    login
-                </mat-icon>
                 <span>Login</span>
+            </a>
+            <a
+                mat-list-item
+                routerLink="request"
+                *ngIf="!isAuthenticated"
+                (click)="closeDrawer(drawer)"
+            >
+                <span>Request Form</span>
             </a>
         </mat-nav-list>
     </mat-sidenav>
@@ -41,15 +54,29 @@
                         menu
                     </mat-icon>
                 </button>
-                <span class="text-uppercase"> ONLINE BOOK SEARCH SYSTEM </span>
+                <span class="text-uppercase">
+                    {{
+                        (isHandset$ | async) == false
+                            ? "ONLINE BOOK SEARCH SYSTEM"
+                            : "OBSS"
+                    }}
+                </span>
             </div>
             <mat-list class="d-flex" *ngIf="(isHandset$ | async) == false">
                 <a mat-list-item routerLink="/">Home</a>
-                <a mat-list-item routerLink="/bookshops">Bookshops</a>
+                <!-- <a mat-list-item routerLink="/bookshops">Bookshops</a> -->
                 <a mat-list-item *ngIf="!isAuthenticated" routerLink="/login">
                     Login
                 </a>
-                <a mat-list-item *ngIf="isAuthenticated">Dashboard</a>
+                <a mat-list-item *ngIf="!isAuthenticated" routerLink="/request">
+                    Request Form
+                </a>
+                <a
+                    mat-list-item
+                    *ngIf="isAuthenticated"
+                    [routerLink]="dashboardRoute"
+                    >Dashboard</a
+                >
             </mat-list>
         </mat-toolbar>
         <router-outlet></router-outlet>
