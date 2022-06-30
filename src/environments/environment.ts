@@ -4,8 +4,8 @@
 
 export const environment = {
     production: false,
-    apiUrl: 'https://online-book-shop-fyp.herokuapp.com/api',
-    imageUrl: 'https://online-book-shop-fyp.herokuapp.com/storage/coverpage/',
+    apiUrl: 'https://bookshop.ga/api',
+    imageUrl: 'https://bookshop.ga/storage/coverpage/',
 };
 
 /*

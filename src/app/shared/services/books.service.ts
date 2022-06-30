@@ -37,6 +37,8 @@ export class BooksService {
             })
             .pipe(
                 tap((res) => {
+                    console.log(res);
+
                     this.bookList.push(res.data);
                     this.bookListSubject.next(this.bookList);
                 })

@@ -38,7 +38,7 @@
                                     {{
                                         user.isActive
                                             ? "Active"
-                                            : "Not Approved"
+                                            : "Not active"
                                     }}
                                 </span>
                             </td>
@@ -55,6 +55,13 @@
                                         *ngIf="!user.isActive"
                                     >
                                         Approve
+                                    </button>
+                                    <button
+                                        mat-raised-button
+                                        color="warn"
+                                        (click)="declineUser(user)"
+                                    >
+                                        Disapprove
                                     </button>
                                 </div>
                             </td>

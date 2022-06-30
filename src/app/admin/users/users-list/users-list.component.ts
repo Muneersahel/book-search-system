@@ -36,15 +36,39 @@ export class UsersListComponent implements OnInit {
 
     approveUser(user: User) {
         if (confirm('Are you sure you want to approve this user?')) {
-            this.userS.approveUser(user.id).subscribe({
-                next: (res) => {
-                    console.log(res);
-                    alert('User approved successfully');
-                },
-                error: (err) => {
-                    console.log(err);
-                },
-            });
+            this.userS
+                .approveUser({
+                    userId: user.id,
+                    approved: true,
+                })
+                .subscribe({
+                    next: (res) => {
+                        console.log(res);
+                        alert('User approved successfully');
+                    },
+                    error: (err) => {
+                        console.log(err);
+                    },
+                });
+        }
+    }
+
+    declineUser(user: User) {
+        if (confirm('Are you sure you want to disaprove this user?')) {
+            this.userS
+                .approveUser({
+                    userId: user.id,
+                    approved: false,
+                })
+                .subscribe({
+                    next: (res) => {
+                        console.log(res);
+                        alert('User disaproved successfully');
+                    },
+                    error: (err) => {
+                        console.log(err);
+                    },
+                });
         }
     }
 }

@@ -31,11 +31,13 @@ export class UsersService {
             );
     }
 
-    approveUser(userId: number) {
+    approveUser(approve: { userId: number; approved: boolean }) {
         return this.http
             .put(
-                `${environment.apiUrl}/approve/${userId}`,
-                {},
+                `${environment.apiUrl}/approve/${approve.userId}`,
+                {
+                    approved: approve.approved,
+                },
                 {
                     headers: {
                         Authorization: `Bearer ${this.authS.getToken()}`,
@@ -44,9 +46,11 @@ export class UsersService {
             )
             .pipe(
                 tap(() => {
-                    const user = this.users.find((user) => user.id === userId);
+                    const user = this.users.find(
+                        (user) => user.id === approve.userId
+                    );
                     if (user) {
-                        user.isActive = true;
+                        user.isActive = approve.approved;
                     }
                     this.usersSubject.next(this.users);
                 })
